@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVS UAE Learning Portal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine.js"></script>
+</head>
+<body class="bg-gray-50" x-data="{ isLoggedIn: false, currentView: 'login', showUpload: false, menuOpen: false }">
+    <!-- Login Screen -->
+    <div x-show="!isLoggedIn" class="min-h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-md w-96">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">EVS UAE</h2>
+                <p class="text-gray-600">Learning Portal Login</p>
+            </div>
+            <form @submit.prevent="isLoggedIn = true" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                    <input type="email" required class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                    <input type="password" required class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div x-show="isLoggedIn" class="min-h-screen bg-gray-50">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <div class="flex-shrink-0 flex items-center">
+                            <span class="text-xl font-bold text-gray-800">EVS UAE Portal</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button @click="isLoggedIn = false" class="text-gray-600 hover:text-gray-800">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <!-- Sidebar and Content -->
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Sidebar -->
+                <div class="w-full md:w-64 bg-white rounded-lg shadow-md p-6">
+                    <div class="space-y-4">
+                        <button @click="currentView = 'documents'" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">Documents</button>
+                        <button @click="currentView = 'training'" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">Training</button>
+                        <button @click="currentView = 'support'" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">Support</button>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="flex-1 bg-white rounded-lg shadow-md p-6">
+                    <!-- Documents View -->
+                    <div x-show="currentView === 'documents'">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-bold text-gray-800">Documents</h2>
+                            <button @click="showUpload = true" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Upload Document</button>
+                        </div>
+                        <!-- Document List -->
+                        <div class="space-y-4">
+                            <div class="p-4 border rounded hover:bg-gray-50">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium">Project Overview.pdf</span>
+                                    <span class="text-sm text-gray-500">Added: Dec 30, 2024</span>
+                                </div>
+                            </div>
+                            <div class="p-4 border rounded hover:bg-gray-50">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium">Training Manual.pdf</span>
+                                    <span class="text-sm text-gray-500">Added: Dec 29, 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Training View -->
+                    <div x-show="currentView === 'training'">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">Training Materials</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-6 border rounded-lg hover:shadow-md transition-shadow">
+                                <h3 class="font-bold mb-2">Workshop Management</h3>
+                                <p class="text-gray-600 mb-4">Learn about work order management and inventory tracking</p>
+                                <button class="text-blue-600 hover:text-blue-800">Start Module</button>
+                            </div>
+                            <div class="p-6 border rounded-lg hover:shadow-md transition-shadow">
+                                <h3 class="font-bold mb-2">Customer Portal</h3>
+                                <p class="text-gray-600 mb-4">Understanding the customer interface and booking system</p>
+                                <button class="text-blue-600 hover:text-blue-800">Start Module</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Support View -->
+                    <div x-show="currentView === 'support'">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">Support</h2>
+                        <div class="space-y-6">
+                            <div class="p-6 border rounded-lg">
+                                <h3 class="font-bold mb-4">Contact Support Team</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="font-medium">Email Support:</p>
+                                        <a href="mailto:support@evsuae.com" class="text-blue-600 hover:text-blue-800">support@evsuae.com</a>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">WhatsApp Support:</p>
+                                        <a href="https://wa.me/971XXXXXXXXX" class="text-blue-600 hover:text-blue-800">+971 XX XXX XXXX</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Modal -->
+        <div x-show="showUpload" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold">Upload Document</h3>
+                    <button @click="showUpload = false" class="text-gray-500 hover:text-gray-700">&times;</button>
+                </div>
+                <form @submit.prevent="showUpload = false" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">File</label>
+                        <input type="file" class="w-full p-2 border rounded">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+                        <textarea class="w-full p-2 border rounded" rows="3"></textarea>
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" @click="showUpload = false" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Authentication with password check
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('auth', () => ({
+                isLoggedIn: false,
+                login(email, password) {
+                    // Basic password check - replace with proper authentication
+                    if (password === 'test') {
+                        this.isLoggedIn = true;
+                        return true;
+                    }
+                    alert('Invalid credentials');
+                    return false;
+                },
+                logout() {
+                    this.isLoggedIn = false;
+                }
+            }))
+        })
+    </script>
+</body>
+</html>
